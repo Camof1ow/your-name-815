@@ -41,7 +41,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({ options, value, onChange, placeho
                     {options.map((option) => (
                         <div
                             key={option.value}
-                            className="cursor-pointer p-2 hover:bg-teal-100"
+                            className="cursor-pointer p-2 hover:bg-gray-300"
                             onClick={() => handleSelectChange(option.value)}
                         >
                             {option.label}

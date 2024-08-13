@@ -7,15 +7,16 @@ interface Option {
 
 interface SelectBoxProps {
     options: Option[];
-    value: string;
-    onChange: (value: string) => void;
+    value: Option;
+    onChange: (value: Option) => void;
     placeholder: string;
 }
 
 const GenderSelect: React.FC<SelectBoxProps> = ({options, value, onChange, placeholder}) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    const handleSelectChange = (value: string) => {
+    const handleSelectChange = (value: Option) => {
+        console.log(value);
         onChange(value);
         setIsOpen(false); // 선택 후 드롭다운을 닫음
     };
@@ -29,7 +30,7 @@ const GenderSelect: React.FC<SelectBoxProps> = ({options, value, onChange, place
                     className="w-full p-2 text-center text-gray-900 bg-white border border-gray-200 rounded-md flex justify-center items-center"
                     onClick={() => setIsOpen(!isOpen)}
                 >
-                    <span>{value || placeholder}</span>
+                    <span>{value.label || placeholder}</span>
 
                 </button>
             </div>
@@ -42,8 +43,8 @@ const GenderSelect: React.FC<SelectBoxProps> = ({options, value, onChange, place
                     {options.map((option) => (
                         <div
                             key={option.value}
-                            className="cursor-pointer p-2 hover:bg-teal-100"
-                            onClick={() => handleSelectChange(option.label)}
+                            className="cursor-pointer p-2 text-black hover:bg-gray-300"
+                            onClick={() => handleSelectChange(option)}
                         >
                             {option.label}
                         </div>

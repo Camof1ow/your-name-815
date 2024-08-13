@@ -39,7 +39,7 @@ const Navigation = () => {
                     과연 내 이름은?
                 </Link>
                 <Link
-                    href="/another-page"
+                    href="/activist"
                     className="flex-1 px-6 py-3 bg-blue-500 bg-opacity-70 rounded-md text-white hover:bg-opacity-80 hover:bg-blue-600 transition-opacity duration-300 text-center"
                 >
                     독립운동가 찾기

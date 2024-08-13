@@ -34,6 +34,11 @@ const defaultModalState: Modal = {
     body: ''
 };
 
+const defaultOptionState : Option = {
+    value: '',
+    label: ''
+}
+
 export default function FormPage() {
     const [inputValue, setInputValue] = useState<string>('');
     const [hanjaData, setHanjaData] = useState<HanjaData[]>([]);
@@ -42,7 +47,7 @@ export default function FormPage() {
     const [firstNameHanja, setFirstNameHanja] = useState<string[]>([]);
     const [lastNameHanja, setLastNameHanja] = useState<string[]>([]);
     const [modal, setModal] = useState<Modal>(defaultModalState);
-    const [selectedGender, setSelectedGender] = useState<string>('');
+    const [selectedGender, setSelectedGender] = useState<Option>(defaultOptionState);
     const router = useRouter();
     const { setData } = useGlobalContext();
 
@@ -125,7 +130,7 @@ export default function FormPage() {
                 body: '성과 이름 사이 공백을 포함시켜주세요.'
             });
             return;
-        } else if (selectedGender === '') {
+        } else if (selectedGender.value === '') {
             setModal({
                 isOpen: true,
                 body: '성별을 체크해주세요.'
@@ -151,7 +156,7 @@ export default function FormPage() {
         const data = {
             firstName: newFirstNameHanja.join(''),
             lastName: newLastNameHanja.join(''),
-            gender: selectedGender
+            gender: selectedGender.value
         };
         setData(data); // Context에 데이터 저장
         router.push('/myname/result');
@@ -163,16 +168,9 @@ export default function FormPage() {
         {value: 'female', label: '여성'},
     ];
 
-    const handleGenderChange = (value: string) => {
-        let gender = "";
-        if (value === '남성') {
-            gender = "male";
-        } else if (value === '여성') {
-            gender = "female";
-        } else {
-            return
-        }
-        setSelectedGender(gender);
+    const handleGenderChange = (value: Option) => {
+
+        setSelectedGender(value);
     };
 
     return (
