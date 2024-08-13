@@ -1,6 +1,6 @@
 "use client"; // 클라이언트 컴포넌트로 명시
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useGlobalContext } from '@/context/GlobalContext';
 import Navigation from '@/components/Navigation';
 import { useRouter } from 'next/navigation';
@@ -76,8 +76,8 @@ const FormPage = () => {
             <Navigation />
 
             <div className="flex flex-col items-center flex-1 px-4">
-                <h1 className="text-xl text-blue-400 font-bold mb-1 text-center">광복이 없었더라면</h1>
-                <h1 className="text-2xl text-blue-500 font-bold mb-4 text-center">과연 내 이름은?</h1>
+                <h1 className="text-xl text-blue-400 font-bold mb-1 text-center">내 이름과 비슷한</h1>
+                <h1 className="text-2xl text-blue-500 font-bold mb-4 text-center">독립운동가는?</h1>
 
                 <img
                     className="w-full p-3 max-w-md bg-white p-2 rounded-t-lg shadow-md"
@@ -108,7 +108,7 @@ const FormPage = () => {
                                     onClick={() => handleOpenModal(content)}
                                 >
                                     <img
-                                        src= "/none_profile.png"
+                                        src="/none_profile.png"
                                         alt={content.name}
                                         className="w-full h-48 object-cover rounded-t-lg"
                                     />
