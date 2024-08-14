@@ -23,6 +23,7 @@ const GenderSelect: React.FC<SelectBoxProps> = ({options, value, onChange, place
 
     const handleMouseDown = (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
         event.preventDefault(); // 포커스 이동 방지
+        event.stopPropagation(); // 이벤트 버블링 방지
     };
 
     return (
@@ -34,6 +35,7 @@ const GenderSelect: React.FC<SelectBoxProps> = ({options, value, onChange, place
                     className="w-full p-2 text-center text-gray-900 bg-white border border-gray-200 rounded-md flex justify-center items-center"
                     onClick={() => setIsOpen(!isOpen)}
                     onMouseDown={handleMouseDown}
+                    tabIndex={-1}
                 >
                     <span>{value.label || placeholder}</span>
 
