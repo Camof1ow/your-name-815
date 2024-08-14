@@ -1,9 +1,10 @@
 // components/Modal.tsx
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
-interface ModalProps {
+interface PeopleModalProps {
     isOpen: boolean;
     onClose: () => void;
+    onOutsideClick: () => void;
     content: {
         name: string;
         image: string;
@@ -11,25 +12,39 @@ interface ModalProps {
     } | null;
 }
 
-const PeopleModal: React.FC<ModalProps> = ({ isOpen, onClose, content }) => {
+const PeopleModal: React.FC<PeopleModalProps> = ({ isOpen, onClose, onOutsideClick, content }) => {
+    const modalRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+                onOutsideClick();
+            }
+        };
+
+        if (isOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isOpen, onOutsideClick]);
+
     if (!isOpen || !content) return null;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4">
+            <div ref={modalRef} className="bg-white rounded-lg p-6 max-w-md w-full max-h-[80vh] overflow-y-auto">
+                <h2 className="text-2xl font-bold mb-4">{content.name}</h2>
+                <img src={content.image} alt={content.name} className="w-full h-48 object-cover mb-4 rounded" />
+                <p className="whitespace-pre-line">{content.details}</p>
                 <button
                     onClick={onClose}
-                    className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
+                    className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
                 >
-                    &times;
+                    닫기
                 </button>
-                <img
-                    src= "/none_profile.png"
-                    alt={content.name}
-                    className="w-full h-48 object-cover rounded-t-lg"
-                />
-                <h2 className="text-xl font-bold text-gray-800 mt-4">{content.name}</h2>
-                <p className="text-gray-600 mt-2">{content.details}</p>
             </div>
         </div>
     );

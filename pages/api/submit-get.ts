@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { firstName, lastName, gender }: QueryParams = req.query as any;
 
     try {
-        const apiResponse = await fetch(`http://localhost:8080/api/name?surName=${firstName}&lastName=${lastName}&gender=${gender}`);
+        const apiResponse = await fetch(`${process.env.BE_API_URL}/api/name?surName=${firstName}&lastName=${lastName}&gender=${gender}`);
         const data = await apiResponse.json();
 
         res.status(200).json(data);

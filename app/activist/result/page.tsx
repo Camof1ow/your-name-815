@@ -20,6 +20,8 @@ interface Contents {
     image: string; // 인물 사진 URL 추가
 }
 
+const API_URL = process.env.BE_API_URL;
+
 const FormPage = () => {
     const { simpleName } = useGlobalContext();
     const [loading, setLoading] = useState<boolean>(false);
@@ -38,7 +40,7 @@ const FormPage = () => {
             if (simpleName) {
                 setLoading(true);
                 try {
-                    const response = await fetch(`http://localhost:8080/api/v1/activists?name=${simpleName.name}`);
+                    const response = await fetch(`${API_URL}/activists?name=${simpleName.name}`);
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
@@ -58,9 +60,14 @@ const FormPage = () => {
 
     const handleOpenModal = (content: Contents) => {
         const modalContent = {
-            name: content.name,
+            name: content.name + `(${content.nameHanja})`,
             image: "/none_profile.png",
-            details: `활동: ${content.activities}\n조직: ${content.engagedOrganizations}\n생몰년: ${content.bornDied}`
+            details: `운동계열: ${content.movementFamily}\n
+            활동: ${content.activities}\n
+            조직: ${content.engagedOrganizations}\n
+            생몰년: ${content.bornDied}\n
+            출생지: ${content.addressBirth}\n
+            주요 내용: ${content.content}`
         };
         setSelectedContent(modalContent);
         setIsModalOpen(true);
@@ -137,6 +144,7 @@ const FormPage = () => {
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
                 content={selectedContent}
+                onOutsideClick={handleCloseModal}
             />
         </div>
     );

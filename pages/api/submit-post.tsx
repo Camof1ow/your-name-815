@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const { firstName, lastName, gender }: RequestBody = req.body;
 
         try {
-            const apiResponse = await fetch('http://localhost:8080/api/name', {
+            const apiResponse = await fetch('${process.env.BE_API_URL}/api/name', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

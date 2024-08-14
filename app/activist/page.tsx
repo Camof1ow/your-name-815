@@ -30,6 +30,12 @@ const FormPage = () => {
         setInputValue(value);
     };
 
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            handleSubmit();
+        }
+    };
+
     const handleModalClose = () => {
         setModal(defaultModalState);
     };
@@ -83,6 +89,7 @@ const FormPage = () => {
                         type="text"
                         value={inputValue}
                         onChange={handleInputChange}
+                        onKeyDown={handleKeyPress}
                         className="mt-4 p-2 block w-full border border-gray-300 rounded-md text-lg text-center"
                         placeholder="이름을 입력하세요"
                     />
