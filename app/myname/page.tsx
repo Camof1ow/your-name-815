@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useGlobalContext } from '@/context/GlobalContext'; // named import로 수정
+import { useGlobalContext } from '@/context/GlobalContext';
 import Navigation from '@/components/Navigation';
 import Modal from '@/components/Modal';
-import SelectBox from "@/components/SelectBox";
 import GenderSelect from "@/components/GenderSelect";
 import * as d3 from 'd3';
 
@@ -34,31 +33,27 @@ const defaultModalState: Modal = {
     body: ''
 };
 
-const defaultOptionState : Option = {
+const defaultOptionState: Option = {
     value: '',
     label: ''
-}
+};
 
 export default function FormPage() {
-    const [inputValue, setInputValue] = useState<string>('');
+    const [lastName, setLastName] = useState<string>('');
+    const [firstName, setFirstName] = useState<string>('');
     const [hanjaData, setHanjaData] = useState<HanjaData[]>([]);
-    const [selectBoxes, setSelectBoxes] = useState<string[]>([]);
-    const [filteredOptions, setFilteredOptions] = useState<{ [index: number]: Option[] }>({});
-    const [firstNameHanja, setFirstNameHanja] = useState<string[]>([]);
-    const [lastNameHanja, setLastNameHanja] = useState<string[]>([]);
+    const [filteredLastNameOptions, setFilteredLastNameOptions] = useState<Option[][]>([]);
+    const [filteredFirstNameOptions, setFilteredFirstNameOptions] = useState<Option[][]>([]);
     const [modal, setModal] = useState<Modal>(defaultModalState);
     const [selectedGender, setSelectedGender] = useState<Option>(defaultOptionState);
     const router = useRouter();
     const { setData } = useGlobalContext();
 
-
     const handleModalClose = () => {
         setModal(defaultModalState);
     };
 
-
     async function loadHanjaData() {
-
         try {
             const data = await d3.csv('/hanja.csv');
             return data.map(d => ({
@@ -81,53 +76,53 @@ export default function FormPage() {
             const data = await loadHanjaData();
             setHanjaData(data);
         }
-
         fetchData();
     }, []);
 
     useEffect(() => {
-        const stringArray = inputValue.split(' ');
-        const optionsObj: { [index: number]: Option[] } = {};
-        let selectBoxIndex = 0;
+        const lastNameOptions = lastName.split('').map(char =>
+            hanjaData
+                .filter(item => item.main_sound === char)
+                .map(item => ({
+                    value: item.hanja,
+                    label: `${item.hanja} (${item.meaning.replace(/[\[\]\'\"]/g, '')})`
+                }))
+        );
+        setFilteredLastNameOptions(lastNameOptions);
+    }, [lastName, hanjaData]);
 
-        stringArray.forEach(part => {
-            const charArray = part.split('');
-            charArray.forEach((char, index) => {
-                const options = hanjaData
-                    .filter(item => item.main_sound === char)
-                    .map(item => ({
-                        value: item.hanja,
-                        label: `${item.hanja} (${item.meaning.replace(/[\[\]\'\"]/g, '')})`
-                    }));
-                optionsObj[selectBoxIndex * 10 + index] = options;
-            });
-            selectBoxIndex++;
-        });
+    useEffect(() => {
+        const firstNameOptions = firstName.split('').map(char =>
+            hanjaData
+                .filter(item => item.main_sound === char)
+                .map(item => ({
+                    value: item.hanja,
+                    label: `${item.hanja} (${item.meaning.replace(/[\[\]\'\"]/g, '')})`
+                }))
+        );
+        setFilteredFirstNameOptions(firstNameOptions);
+    }, [firstName, hanjaData]);
 
-        setFilteredOptions(optionsObj);
-    }, [inputValue, hanjaData]);
+    const handleSelectChange = (index: number, value: string, type: 'lastName' | 'firstName') => {
+        const currentValue = type === 'lastName' ? lastName : firstName;
+        const newValue = currentValue.split('');
+        newValue[index] = value;
+        const updatedValue = newValue.join('');
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setInputValue(value);
-        const boxes = value.split('').filter(char => char.trim() !== '');
-        setSelectBoxes(new Array(boxes.length).fill(''));
-    };
-
-    const handleSelectChange = (index: number, value: string) => {
-        const newSelectBoxes = [...selectBoxes];
-        newSelectBoxes[index] = value;
-        setSelectBoxes(newSelectBoxes);
+        if (type === 'lastName') {
+            setLastName(updatedValue);
+        } else {
+            setFirstName(updatedValue);
+        }
     };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const stringArray = inputValue.split(' ');
-        if (stringArray.length < 2) {
+        if (!lastName || !firstName) {
             setModal({
                 isOpen: true,
-                body: '성과 이름 사이 공백을 포함시켜주세요.'
+                body: '성과 이름을 모두 입력해주세요.'
             });
             return;
         } else if (selectedGender.value === '') {
@@ -138,83 +133,93 @@ export default function FormPage() {
             return;
         }
 
-        const lastNameLength = stringArray[0].length;
-        const newLastNameHanja = Object.entries(selectBoxes)
-            .filter(([index]) => parseInt(index) < lastNameLength)
-            .sort(([a], [b]) => parseInt(a) - parseInt(b))
-            .map(([, value]) => value);
-
-        const newFirstNameHanja = Object.entries(selectBoxes)
-            .filter(([index]) => parseInt(index) >= lastNameLength)
-            .sort(([a], [b]) => parseInt(a) - parseInt(b))
-            .map(([, value]) => value);
-
-        setFirstNameHanja(newFirstNameHanja);
-        setLastNameHanja(newLastNameHanja);
-
-
         const data = {
-            firstName: newFirstNameHanja.join(''),
-            lastName: newLastNameHanja.join(''),
+            firstName,
+            lastName,
             gender: selectedGender.value
         };
         setData(data); // Context에 데이터 저장
         router.push('/myname/result');
-
     };
 
     const genderOptions = [
-        {value: 'male', label: '남성'},
-        {value: 'female', label: '여성'},
+        { value: 'male', label: '남성' },
+        { value: 'female', label: '여성' },
     ];
 
     const handleGenderChange = (value: Option) => {
-
         setSelectedGender(value);
     };
 
     return (
         <div className="flex flex-col h-screen bg-gray-100 p-4">
-            <Navigation/> {/* 네비게이션 탭을 여기에 추가 */}
+            <Navigation />
 
             <div className="flex flex-col items-center flex-1 px-4">
                 <h1 className="text-xl text-blue-400 font-bold mb-1 text-center">광복이 없었더라면</h1>
                 <h1 className="text-2xl text-blue-500 font-bold mb-4 text-center">과연 내 이름은?</h1>
 
-                <img className="w-full p-3 max-w-md bg-white rounded-t-lg shadow-md" src="/815.jpg"
-                     alt={"광복절 이미지"}></img>
-                <form onSubmit={handleSubmit} className="w-full max-w-md bg-white p-6 rounded-b-lg shadow-md">
-                    <label className="block mb-4 text-center">
-                        <span className="font-bold text-pink-400">성과 이름을 띄어쓰기로 구분해주세요.</span>
-                        <input
-                            type="text"
-                            value={inputValue}
-                            onChange={handleInputChange}
-                            className="mt-4 p-2 block w-full border border-gray-300 rounded-md text-lg text-center"
-                            placeholder="이름을 입력하세요"
-                        />
-                        <div className="grid grid-cols-3 gap-4 mt-4">
-                            {inputValue.split('')
-                                .filter(char => char.trim() !== '')
-                                .map((char, index) => {
-                                    const options = hanjaData
-                                        .filter(item => item.main_sound === char)
-                                        .map(item => ({
-                                            value: item.hanja,
-                                            label: `${item.hanja} (${item.meaning.replace(/[\[\]\'\"]/g, '')})`
-                                        }));
+                <img className="w-full p-3 max-w-md bg-white rounded-t-lg shadow-md" src="/815.jpg" alt="광복절 이미지" />
 
-                                    return (
-                                        <SelectBox
-                                            key={index}
-                                            options={options}
-                                            value={selectBoxes[index] || ''}
-                                            onChange={(value) => handleSelectChange(index, value)}
-                                            placeholder={char}
-                                            index={index} // 인덱스 전달
-                                        />
-                                    );
-                                })}
+                <form onSubmit={handleSubmit} className="w-full max-w-md bg-white p-6 rounded-b-lg shadow-md relative">
+                    <label className="block mb-4 text-center">
+                        <span className="font-bold text-pink-400">성과 이름을 입력해주세요.</span>
+                        <div className="relative flex gap-2 mb-4">
+                            <div className="relative flex-1">
+                                <input
+                                    type="text"
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
+                                    className="p-2 border border-gray-300 rounded-md text-lg text-center w-full"
+                                    placeholder="성"
+                                />
+                                {lastName && (
+                                    <div
+                                        className="absolute top-full left-0 mt-1 bg-white border border-gray-300 rounded-lg w-full max-h-60 overflow-y-auto z-10">
+                                        {filteredLastNameOptions.map((options, index) => (
+                                            <div key={index} className="relative">
+                                                {options.map(option => (
+                                                    <div
+                                                        key={option.value}
+                                                        className="p-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-200"
+                                                        onClick={() => handleSelectChange(index, option.value, 'lastName')}
+                                                    >
+                                                        {option.label}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="relative flex-1">
+                                <input
+                                    type="text"
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                    className="p-2 border border-gray-300 rounded-md text-lg text-center w-full"
+                                    placeholder="이름"
+                                />
+                                {firstName && (
+                                    <div
+                                        className="absolute top-full left-0 mt-1 bg-white border border-gray-300 rounded-lg w-full max-h-60 overflow-y-auto z-10">
+                                        {filteredFirstNameOptions.map((options, index) => (
+                                            <div key={index} className="relative">
+                                                {options.map(option => (
+                                                    <div
+                                                        key={option.value}
+                                                        className="p-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-200"
+                                                        onClick={() => handleSelectChange(index, option.value, 'firstName')}
+                                                    >
+                                                        {option.label}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                         </div>
 
                         <GenderSelect
@@ -223,7 +228,6 @@ export default function FormPage() {
                             onChange={handleGenderChange}
                             placeholder="성별을 선택하세요"
                         />
-
                     </label>
 
                     <button type="submit"
@@ -231,18 +235,13 @@ export default function FormPage() {
                         확인
                     </button>
                 </form>
+
             </div>
 
-            {/* 모달 컴포넌트 */}
-            <Modal
-                isOpen={modal.isOpen}
-                onClose={handleModalClose}
-            >
+            <Modal isOpen={modal.isOpen} onClose={handleModalClose}>
                 <p className="text-gray-700 text-center leading-relaxed">{modal.body}</p>
                 <button
-                    onClick={() => {
-                        setModal(defaultModalState)
-                    }}
+                    onClick={handleModalClose}
                     className="mt-4 w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                 >
                     알겠습니다.
