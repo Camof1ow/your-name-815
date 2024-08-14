@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import PeopleModal from '@/components/PeopleModal';
 import AlertPopup from "@/components/AlertPopupProps";
 import Footer from "@/components/Footer";
+import LikeButton from "@/components/LikeButton";
+import Navigation from "@/components/Navigation";
 
 interface Contents {
     id: number;
@@ -97,6 +99,7 @@ const FormPage = () => {
 
     return (
         <div className="flex flex-col h-screen bg-gray-100 p-4">
+            <Navigation />
 
             <div className="flex flex-col items-center flex-1 px-4">
                 <h1 className="text-xl text-blue-400 font-bold mb-1 text-center">내 이름과 비슷한</h1>
@@ -187,6 +190,7 @@ const FormPage = () => {
                 message="링크가 클립보드에 복사되었습니다!"
                 isVisible={isAlertVisible}
             />
+            <LikeButton />
             <Footer githubUrl="https://github.com/Camof1ow" />
 
         </div>

@@ -4,6 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { useGlobalContext } from '@/context/GlobalContext';
 import { useRouter } from 'next/navigation';
 import Footer from "@/components/Footer";
+import LikeButton from "@/components/LikeButton";
+import AlertPopup from "@/components/AlertPopupProps";
+import Navigation from "@/components/Navigation";
 
 const FormPage = () => {
     const { data } = useGlobalContext();
@@ -56,6 +59,7 @@ const FormPage = () => {
 
     return (
         <div className="flex flex-col h-screen bg-gray-100 p-4">
+            <Navigation />
 
             <div className="flex flex-col items-center flex-1 px-4">
                 <h1 className="text-xl text-blue-400 font-bold mb-1 text-center">광복이 없었더라면</h1>
@@ -123,7 +127,11 @@ const FormPage = () => {
 
                 </div>
             </div>
-
+            <LikeButton />
+            <AlertPopup
+                message="링크가 클립보드에 복사되었습니다!"
+                isVisible={isAlertVisible}
+            />
             <Footer githubUrl="https://github.com/Camof1ow" />
 
         </div>

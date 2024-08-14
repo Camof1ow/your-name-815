@@ -5,6 +5,8 @@ import Modal from '@/components/Modal';
 import { useGlobalContext } from '@/context/GlobalContext';
 import { useRouter } from "next/navigation";
 import Footer from "@/components/Footer";
+import LikeButton from "@/components/LikeButton";
+import Navigation from "@/components/Navigation";
 
 interface Modal {
     isOpen: boolean;
@@ -92,6 +94,7 @@ const FormPage = () => {
 
     return (
         <div className="flex flex-col h-screen bg-gray-100 p-4">
+            <Navigation />
 
             <div className="flex flex-col items-center flex-1 px-4">
                 <h1 className="text-xl text-blue-400 font-bold mb-1 text-center">내 이름과 비슷한</h1>
@@ -141,7 +144,7 @@ const FormPage = () => {
                 </button>
             </Modal>
 
-
+            <LikeButton />
             <Footer githubUrl="https://github.com/Camof1ow" />
         </div>
     );
