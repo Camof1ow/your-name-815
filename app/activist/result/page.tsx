@@ -173,7 +173,7 @@ const FormPage = () => {
                             className="w-full py-3 bg-purple-500 text-white rounded-md hover:bg-purple-600 text-lg"
                             onClick={handleGoToMyName}
                         >
-                            당신의 이름은?
+                            당신의 이름은?🕵🏻‍
                         </button>
                     </div>
                 </div>
