@@ -138,7 +138,7 @@ const FormPage = () => {
                                     onClick={() => handleOpenModal(content)}
                                 >
                                     <img
-                                        src={content.imagePath ? `${process.env.BE_BASE_URL}images/activists/${content.imagePath}` : "/none_profile.png"}
+                                        src={content.imagePath ? `/activists/${content.imagePath}` : "/none_profile.png"}
                                         alt={content.name}
                                         className="w-full h-48 object-cover rounded-t-lg"
                                     />
