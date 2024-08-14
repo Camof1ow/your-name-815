@@ -129,7 +129,7 @@ const FormPage = () => {
                             검색 이름: {simpleName?.name}
                         </h2>
                         <h2 className="text-2xl font-bold text-gray-700 mb-4">
-                            발견된 독립운동가들😎<br/>
+                            찾아낸 독립운동가들😎<br/>
                         </h2>
                         <h5>최대 10명까지 보여집니다😀</h5>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
