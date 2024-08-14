@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useGlobalContext } from '@/context/GlobalContext';
 import { useRouter } from 'next/navigation';
+import Footer from "@/components/Footer";
 
 const FormPage = () => {
     const { data } = useGlobalContext();
@@ -123,6 +124,7 @@ const FormPage = () => {
                 </div>
             </div>
 
+            <Footer githubUrl="https://github.com/Camof1ow" />
 
         </div>
     );

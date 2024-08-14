@@ -6,6 +6,7 @@ import { useGlobalContext } from '@/context/GlobalContext';
 import Modal from '@/components/Modal';
 import GenderSelect from "@/components/GenderSelect";
 import * as d3 from 'd3';
+import Footer from "@/components/Footer";
 
 interface HanjaData {
     hanja: string;
@@ -161,7 +162,7 @@ export default function FormPage() {
 
                 <form onSubmit={handleSubmit} className="w-full max-w-md bg-white p-6 rounded-b-lg shadow-md relative">
                     <label className="block mb-4 text-center">
-                        <span className="font-bold text-pink-400">성과 이름을 입력해주세요.</span>
+                        <span className="font-bold my-2 text-pink-400">성과 이름을 입력해주세요.</span>
                         <div className="relative flex gap-2 mb-4">
                             <div className="relative flex-1">
                                 <input
@@ -250,6 +251,9 @@ export default function FormPage() {
                     알겠습니다.
                 </button>
             </Modal>
+
+            <Footer githubUrl="https://github.com/Camof1ow" />
+
         </div>
     );
 }

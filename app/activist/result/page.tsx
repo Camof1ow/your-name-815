@@ -5,6 +5,7 @@ import { useGlobalContext } from '@/context/GlobalContext';
 import { useRouter } from 'next/navigation';
 import PeopleModal from '@/components/PeopleModal';
 import AlertPopup from "@/components/AlertPopupProps";
+import Footer from "@/components/Footer";
 
 interface Contents {
     id: number;
@@ -186,6 +187,8 @@ const FormPage = () => {
                 message="링크가 클립보드에 복사되었습니다!"
                 isVisible={isAlertVisible}
             />
+            <Footer githubUrl="https://github.com/Camof1ow" />
+
         </div>
     );
 };

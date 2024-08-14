@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Modal from '@/components/Modal';
 import { useGlobalContext } from '@/context/GlobalContext';
 import { useRouter } from "next/navigation";
+import Footer from "@/components/Footer";
 
 interface Modal {
     isOpen: boolean;
@@ -139,6 +140,9 @@ const FormPage = () => {
                     알겠습니다.
                 </button>
             </Modal>
+
+
+            <Footer githubUrl="https://github.com/Camof1ow" />
         </div>
     );
 };
