@@ -47,8 +47,7 @@ const FormPage = () => {
                     const result = await response.json();
                     setContents(result["contents"]);
                 } catch (error) {
-                    console.error('Error fetching data:', error);
-                    setError('Failed to fetch data');
+                    setError(`결과조회에 실패했습니다! \n 다시 조회해주세요!`);
                 } finally {
                     setLoading(false);
                 }
@@ -84,7 +83,7 @@ const FormPage = () => {
 
             <div className="flex flex-col items-center flex-1 px-4">
                 <h1 className="text-xl text-blue-400 font-bold mb-1 text-center">내 이름과 비슷한</h1>
-                <h1 className="text-2xl text-blue-500 font-bold mb-4 text-center">독립운동가는?</h1>
+                <h1 className="text-2xl text-blue-500 font-bold mb-4 text-center">독립운동가는?🇰🇷</h1>
 
                 <img
                     className="w-full p-3 max-w-md bg-white p-2 rounded-t-lg shadow-md"
@@ -94,7 +93,7 @@ const FormPage = () => {
 
                 {loading ? (
                     <div className="w-full p-3 max-w-md bg-white p-2 shadow-md text-center">
-                        <p className="text-lg font-bold text-gray-700 mb-4">데이터를 가져오는 중입니다...</p>
+                        <p className="text-lg font-bold text-gray-700 mb-4">데이터를 가져오는 중입니다...🔍</p>
                         <div className="loader">
                             <div className="spinner-border animate-spin"></div>
                         </div>
@@ -106,7 +105,10 @@ const FormPage = () => {
                     </div>
                 ) : contents.length > 0 ? (
                     <div className="w-full p-3 max-w-md bg-white p-2 shadow-md text-center">
-                        <h2 className="text-2xl font-bold text-gray-700 mb-4">발견된 독립운동가들</h2>
+                        <h2 className="text-2xl font-bold text-gray-700 mb-4">
+                            발견된 독립운동가들😎<br/>
+                        </h2>
+                        <h5>최대 10명까지 보여집니다😀</h5>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                             {contents.map((content) => (
                                 <div
@@ -126,7 +128,7 @@ const FormPage = () => {
                     </div>
                 ) : (
                     <div className="w-full p-3 max-w-md bg-white p-2 shadow-md text-center">
-                        <p className="text-lg font-bold text-gray-700 mb-4">결과가 없습니다.</p>
+                        <p className="text-lg font-bold text-gray-700 mb-4">결과가 없습니다.😭</p>
                     </div>
                 )}
 
