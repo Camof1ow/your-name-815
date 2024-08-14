@@ -17,7 +17,7 @@ const FormPage = () => {
             if (data) {
                 setLoading(true); // 시작 시 로딩 상태 설정
                 try {
-                    const response = await fetch(`/api/name?firstName=${data.firstName}&lastName=${data.lastName}&gender=${data.gender}`);
+                    const response = await fetch(`/backend/api/name?firstName=${data.firstName}&lastName=${data.lastName}&gender=${data.gender}`);
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }

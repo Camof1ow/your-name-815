@@ -7,7 +7,7 @@ export default {
     async rewrites() {
         return [
             {
-                source: '/api/:path*',
+                source: '/backend/api/:path*',
                 destination: `${process.env.BE_API_URL}/:path*`,
             },
         ];
