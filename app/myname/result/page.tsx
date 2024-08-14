@@ -41,7 +41,7 @@ const FormPage = () => {
 
     const handleCopyLink = () => {
         const baseUrl = window.location.origin;
-        const searchPageUrl = `${baseUrl}/activist`;
+        const searchPageUrl = `${baseUrl}/myname`;
 
         navigator.clipboard.writeText(searchPageUrl).then(() => {
             setIsAlertVisible(true);
