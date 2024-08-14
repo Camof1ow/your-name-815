@@ -62,8 +62,8 @@ const FormPage = () => {
             <Navigation />
 
             <div className="flex flex-col items-center flex-1 px-4">
-                <h1 className="text-xl text-blue-400 font-bold mb-1 text-center">광복이 없었더라면</h1>
-                <h1 className="text-2xl text-blue-500 font-bold mb-4 text-center">과연 내 이름은?</h1>
+                <h1 className="text-xl text-blue-400 font-bold mb-1 text-center"> 광복절의 의미, 우리의 이름 🇰🇷</h1>
+                <h1 className="text-xl text-blue-500 font-bold mb-4 text-center">우리의 이름과 정체성을 잊지 말고 계속해서 기억합시다.</h1>
 
                 <img
                     className="w-full p-3 max-w-md bg-white p-2 rounded-t-lg shadow-md"
@@ -87,11 +87,13 @@ const FormPage = () => {
                     <div className="w-full max-w-md bg-white p-6 shadow-md text-center">
                         <h2 className="text-2xl font-bold text-gray-700 mb-4">당신의 이름은</h2>
                         <pre className="text-2xl mb-2">{apiResponse["surName"]} {apiResponse["firstName"]} </pre>
-                        <pre className="text-lg mb-2">{apiResponse["pronounceSurName"]} {apiResponse["pronounceFirstName"]}</pre>
+                        <pre
+                            className="text-lg mb-2">{apiResponse["pronounceSurName"]} {apiResponse["pronounceFirstName"]}</pre>
                         {apiResponse["households"] === 9999 ? (
-                            <pre className="text-lg mb-2"> 몇 가구가 사용중인 성씨인지 <br />집계되지 않았어요.😰</pre>
+                            <pre className="text-lg mb-2"> 몇 가구가 사용중인 성씨인지 <br/>집계되지 않았어요.😰</pre>
                         ) : (
-                            <pre className="text-lg mb-2">현재 일본 내 대략 {apiResponse["households"]} 가구가 <br />쓰고 있는 성씨입니다.</pre>
+                            <pre
+                                className="text-lg mb-2">현재 일본 내 대략 {apiResponse["households"]} 가구가 <br/>쓰고 있는 성씨입니다.</pre>
                         )}
                         {apiResponse["eg"] === undefined ? (
                             <pre className="text-lg mb-2"> </pre>
@@ -99,6 +101,14 @@ const FormPage = () => {
                         ) : (
                             <pre className="text-lg mb-2"> {apiResponse["eg"]}사람들이 자신의 성씨를<br/>잊지않기 위해 갖게된 성씨에요.</pre>
                         )}
+
+                        <p className="mt-4 p-2 text-white bg-gray-600 rounded-2xl">
+                            이 이름은 과거 일본의 식민 지배 시기,<br/>
+                            강제로 변경된 이름일 수 있습니다.<br/>
+                            지금 우리의 자유로운 이름을 <br/>
+                            되찾을 수 있었던 것은 광복 덕분입니다.<br/>
+                            우리 역사를 잊지 말고 기억합시다.<br/>
+                        </p>
 
                     </div>
                 ) : (
@@ -127,12 +137,12 @@ const FormPage = () => {
 
                 </div>
             </div>
-            <LikeButton />
+            <LikeButton/>
             <AlertPopup
                 message="링크가 클립보드에 복사되었습니다!"
                 isVisible={isAlertVisible}
             />
-            <Footer githubUrl="https://github.com/Camof1ow" />
+            <Footer githubUrl="https://github.com/Camof1ow"/>
 
         </div>
     );

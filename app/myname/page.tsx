@@ -158,8 +158,8 @@ export default function FormPage() {
             <Navigation />
 
             <div className="flex flex-col items-center flex-1 px-4">
-                <h1 className="text-xl text-blue-400 font-bold mb-1 text-center">광복이 없었더라면</h1>
-                <h1 className="text-2xl text-blue-500 font-bold mb-4 text-center">과연 내 이름은?</h1>
+                <h1 className="text-xl text-blue-400 font-bold mb-1 text-center"> 광복절의 의미, 우리의 이름 🇰🇷</h1>
+                <h1 className="text-xl text-blue-500 font-bold mb-4 text-center">우리의 이름과 정체성을 잊지 말고 계속해서 기억합시다.</h1>
 
                 <img className="w-full p-3 max-w-md bg-white rounded-t-lg shadow-md" src="/815.jpg" alt="광복절 이미지" />
 
@@ -217,7 +217,8 @@ export default function FormPage() {
                                                         className="p-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-200"
                                                         onClick={(event) => {
                                                             event.preventDefault(); // 기본 동작 막기
-                                                            handleSelectChange(index, option.value, 'firstName')}}
+                                                            handleSelectChange(index, option.value, 'firstName')
+                                                        }}
                                                     >
                                                         {option.label}
                                                     </div>
