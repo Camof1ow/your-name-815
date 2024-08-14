@@ -102,12 +102,10 @@ const FormPage = () => {
                             <pre className="font-bold mb-2"> {apiResponse["eg"]}사람들이 자신의 성씨를<br/>잊지않기 위해 갖게된 성씨에요.</pre>
                         )}
 
-                        <p className="mt-4 p-2 text-white bg-gray-600 rounded-2xl">
-                            이 이름은 과거 일본의 식민 지배 시기,<br/>
-                            강제로 변경된 이름일 수 있습니다.<br/>
-                            지금 우리의 자유로운 이름을 <br/>
-                            되찾을 수 있었던 것은 광복 덕분입니다.<br/>
-                            우리 역사를 잊지 말고 기억합시다.<br/>
+                        <p className="mt-4 text-sm p-2 text-white bg-gray-600 rounded-2xl">
+                            이 이름은 일본 식민 지배 시기에 강제로 바뀐 것입니다. <br/>
+                            광복 덕분에 우리 자유로운 이름을 되찾을 수 있었습니다. <br/>
+                            역사를 기억하고 잊지 맙시다.
                         </p>
 
                     </div>
