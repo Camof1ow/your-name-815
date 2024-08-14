@@ -5,6 +5,7 @@ import { useGlobalContext } from '@/context/GlobalContext';
 import Navigation from '@/components/Navigation';
 import { useRouter } from 'next/navigation';
 import PeopleModal from '@/components/PeopleModal';
+import AlertPopup from "@/components/AlertPopupProps";
 
 interface Contents {
     id: number;
@@ -33,7 +34,7 @@ const FormPage = () => {
         details: string;
     } | null>(null);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [copySuccess, setCopySuccess] = useState<boolean>(false);
+    const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -77,17 +78,21 @@ const FormPage = () => {
         setIsModalOpen(false);
         setSelectedContent(null);
     };
+
     const handleCopyLink = () => {
-        // const currentUrl = window.location.href;
         const baseUrl = window.location.origin;
         const searchPageUrl = `${baseUrl}/activist`;
 
         navigator.clipboard.writeText(searchPageUrl).then(() => {
-            setCopySuccess(true);
-            setTimeout(() => setCopySuccess(false), 2000); // 2초 후 메시지 사라짐
+            setIsAlertVisible(true);
+            setTimeout(() => setIsAlertVisible(false), 2000); // 2초 후 알림 숨김
         }, (err) => {
             console.error('링크 복사 실패: ', err);
         });
+    };
+
+    const handleGoToMyName = () => {
+        router.push('/myname');
     };
 
     return (
@@ -162,9 +167,12 @@ const FormPage = () => {
                         >
                             링크 복사하기
                         </button>
-                        {copySuccess && (
-                            <p className="mt-2 text-green-600">링크가 클립보드에 복사되었습니다!</p>
-                        )}
+                        <button
+                            className="w-full py-3 bg-purple-500 text-white rounded-md hover:bg-purple-600 text-lg"
+                            onClick={handleGoToMyName}
+                        >
+                            당신의 이름은?
+                        </button>
                     </div>
                 </div>
             </div>
@@ -174,6 +182,11 @@ const FormPage = () => {
                 onClose={handleCloseModal}
                 content={selectedContent}
                 onOutsideClick={handleCloseModal}
+            />
+
+            <AlertPopup
+                message="링크가 클립보드에 복사되었습니다!"
+                isVisible={isAlertVisible}
             />
         </div>
     );
