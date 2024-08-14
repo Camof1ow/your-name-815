@@ -77,7 +77,7 @@ const FormPage = () => {
                 <div className="w-full p-3 max-w-md bg-white p-2 rounded-b-lg shadow-md text-center">
                     <button className="w-full py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 text-lg"
                             onClick={() => router.back()}>
-                        다시 짓기
+                        다시 검색!
                     </button>
 
                 </div>
