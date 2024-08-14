@@ -17,7 +17,7 @@ interface Contents {
     content: string;
     activities: string;
     engagedOrganizations: string;
-    image: string; // 인물 사진 URL 추가
+    imagePath: string; // 인물 사진 URL 추가
 }
 
 const API_URL = process.env.BE_API_URL;
