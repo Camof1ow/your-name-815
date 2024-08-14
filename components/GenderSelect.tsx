@@ -21,7 +21,7 @@ const GenderSelect: React.FC<SelectBoxProps> = ({options, value, onChange, place
         setIsOpen(false); // 선택 후 드롭다운을 닫음
     };
 
-    const handleMouseDown = (event) => {
+    const handleMouseDown = (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
         event.preventDefault(); // 포커스 이동 방지
     };
 
