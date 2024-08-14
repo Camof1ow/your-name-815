@@ -33,6 +33,7 @@ const FormPage = () => {
         details: string;
     } | null>(null);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [copySuccess, setCopySuccess] = useState<boolean>(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -76,6 +77,18 @@ const FormPage = () => {
         setIsModalOpen(false);
         setSelectedContent(null);
     };
+    const handleCopyLink = () => {
+        // const currentUrl = window.location.href;
+        const baseUrl = window.location.origin;
+        const searchPageUrl = `${baseUrl}/activist`;
+
+        navigator.clipboard.writeText(searchPageUrl).then(() => {
+            setCopySuccess(true);
+            setTimeout(() => setCopySuccess(false), 2000); // 2초 후 메시지 사라짐
+        }, (err) => {
+            console.error('링크 복사 실패: ', err);
+        });
+    };
 
     return (
         <div className="flex flex-col h-screen bg-gray-100 p-4">
@@ -105,6 +118,9 @@ const FormPage = () => {
                     </div>
                 ) : contents.length > 0 ? (
                     <div className="w-full p-3 max-w-md bg-white p-2 shadow-md text-center">
+                        <h2 className="text-xl font-bold text-gray-700 mb-2">
+                            검색 이름: {simpleName?.name}
+                        </h2>
                         <h2 className="text-2xl font-bold text-gray-700 mb-4">
                             발견된 독립운동가들😎<br/>
                         </h2>
@@ -128,17 +144,28 @@ const FormPage = () => {
                     </div>
                 ) : (
                     <div className="w-full p-3 max-w-md bg-white p-2 shadow-md text-center">
-                        <p className="text-lg font-bold text-gray-700 mb-4">결과가 없습니다.😭</p>
+                    <p className="text-lg font-bold text-gray-700 mb-4">결과가 없습니다.😭</p>
                     </div>
                 )}
 
                 <div className="w-full p-3 max-w-md bg-white p-2 rounded-b-lg shadow-md text-center">
-                    <button
-                        className="w-full py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 text-lg"
-                        onClick={() => router.back()}
-                    >
-                        다시 찾기
-                    </button>
+                    <div className="space-y-2"> {/* 버튼들을 감싸는 div에 space-y-2 클래스 추가 */}
+                        <button
+                            className="w-full py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 text-lg"
+                            onClick={() => router.back()}
+                        >
+                            다시 찾기
+                        </button>
+                        <button
+                            className="w-full py-3 bg-green-500 text-white rounded-md hover:bg-green-600 text-lg"
+                            onClick={handleCopyLink}
+                        >
+                            링크 복사하기
+                        </button>
+                        {copySuccess && (
+                            <p className="mt-2 text-green-600">링크가 클립보드에 복사되었습니다!</p>
+                        )}
+                    </div>
                 </div>
             </div>
 
