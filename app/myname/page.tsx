@@ -159,7 +159,7 @@ export default function FormPage() {
 
             <div className="flex flex-col items-center flex-1 px-4">
                 <h1 className="text-xl text-blue-400 font-bold mb-1 text-center"> 광복절의 의미, 우리의 이름 🇰🇷</h1>
-                <h1 className="text-xl text-blue-500 font-bold mb-4 text-center">우리의 이름과 정체성을 잊지 말고 계속해서 기억합시다.</h1>
+                <h1 className="text-xl text-blue-500 font-bold mb-4 text-center">우리의 이름과 정체성이 계속되도록.</h1>
 
                 <img className="w-full p-3 max-w-md bg-white rounded-t-lg shadow-md" src="/815.jpg" alt="광복절 이미지" />
 
