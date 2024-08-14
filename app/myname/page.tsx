@@ -165,7 +165,7 @@ export default function FormPage() {
 
                 <form onSubmit={handleSubmit} className="w-full max-w-md bg-white p-6 rounded-b-lg shadow-md relative">
                     <label className="block mb-4 text-center">
-                        <span className="font-bold my-2 text-pink-400">성과 이름을 입력해주세요.</span>
+                        <p className="font-bold mb-4 text-pink-400">성과 이름을 입력해주세요.</p>
                         <div className="relative flex gap-2 mb-4">
                             <div className="relative flex-1">
                                 <input
