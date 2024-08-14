@@ -64,7 +64,7 @@ const FormPage = () => {
     const handleOpenModal = (content: Contents) => {
         const modalContent = {
             name: content.name + `(${content.nameHanja})`,
-            image: content.imagePath ? content.imagePath : "/none_profile.png",
+            image: content.imagePath,
             details: `운동계열: ${content.movementFamily}\n
             활동: ${content.activities}\n
             조직: ${content.engagedOrganizations}\n
