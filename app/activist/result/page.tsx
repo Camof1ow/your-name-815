@@ -40,7 +40,7 @@ const FormPage = () => {
             if (simpleName) {
                 setLoading(true);
                 try {
-                    const response = await fetch(`${API_URL}/activists?name=${simpleName.name}`);
+                    const response = await fetch(`/api/activists?name=${simpleName.name}`);
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
