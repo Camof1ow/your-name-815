@@ -61,7 +61,7 @@ const FormPage = () => {
     const handleOpenModal = (content: Contents) => {
         const modalContent = {
             name: content.name + `(${content.nameHanja})`,
-            image: "/none_profile.png",
+            image: content.imagePath ? content.imagePath : "/none_profile.png",
             details: `운동계열: ${content.movementFamily}\n
             활동: ${content.activities}\n
             조직: ${content.engagedOrganizations}\n
@@ -133,7 +133,7 @@ const FormPage = () => {
                                     onClick={() => handleOpenModal(content)}
                                 >
                                     <img
-                                        src="/none_profile.png"
+                                        src={content.imagePath ? `${process.env.BE_BASE_URL}images/activists/${content.imagePath}` : "/none_profile.png"}
                                         alt={content.name}
                                         className="w-full h-48 object-cover rounded-t-lg"
                                     />

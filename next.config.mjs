@@ -2,6 +2,7 @@
 export default {
     env: {
         BE_API_URL: process.env.BE_API_URL,
+        BE_BASE_URL: process.env.BE_BASE_URL,
     },
     reactStrictMode: true,
     async rewrites() {
