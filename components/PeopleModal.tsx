@@ -38,7 +38,7 @@ const PeopleModal: React.FC<PeopleModalProps> = ({ isOpen, onClose, onOutsideCli
             <div ref={modalRef} className="bg-white rounded-lg p-6 max-w-md w-full max-h-[80vh] overflow-y-auto">
                 <h2 className="text-2xl font-bold mb-4">{content.name}</h2>
                 <img
-                    src={`/activists/${content.image}`}
+                    src={content.image ? `/activists/${content.image}` : "/none_profile.png"}
                     alt={content.name}
                     className="w-full h-auto max-h-48 object-contain mb-4 rounded"
                 />
