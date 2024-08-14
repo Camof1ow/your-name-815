@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useGlobalContext } from '@/context/GlobalContext';
-import Navigation from '@/components/Navigation';
 import Modal from '@/components/Modal';
 import GenderSelect from "@/components/GenderSelect";
 import * as d3 from 'd3';
@@ -153,7 +152,6 @@ export default function FormPage() {
 
     return (
         <div className="flex flex-col h-screen bg-gray-100 p-4">
-            <Navigation />
 
             <div className="flex flex-col items-center flex-1 px-4">
                 <h1 className="text-xl text-blue-400 font-bold mb-1 text-center">광복이 없었더라면</h1>
@@ -175,14 +173,17 @@ export default function FormPage() {
                                 />
                                 {lastName && (
                                     <div
-                                        className="absolute top-full left-0 mt-1 bg-white border border-gray-300 rounded-lg w-full max-h-60 overflow-y-auto z-10">
+                                        className="absolute top-full left-0 mt-1 bg-white rounded-lg w-full max-h-60 overflow-y-auto z-10">
                                         {filteredLastNameOptions.map((options, index) => (
                                             <div key={index} className="relative">
                                                 {options.map(option => (
                                                     <div
                                                         key={option.value}
                                                         className="p-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-200"
-                                                        onClick={() => handleSelectChange(index, option.value, 'lastName')}
+                                                        onClick={(event) => {
+                                                            event.preventDefault(); // 기본 동작 막기
+                                                            handleSelectChange(index, option.value, 'lastName');
+                                                        }}
                                                     >
                                                         {option.label}
                                                     </div>
@@ -203,14 +204,16 @@ export default function FormPage() {
                                 />
                                 {firstName && (
                                     <div
-                                        className="absolute top-full left-0 mt-1 bg-white border border-gray-300 rounded-lg w-full max-h-60 overflow-y-auto z-10">
+                                        className="absolute top-full left-0 mt-1 bg-white rounded-lg w-full max-h-60 overflow-y-auto z-10">
                                         {filteredFirstNameOptions.map((options, index) => (
                                             <div key={index} className="relative">
                                                 {options.map(option => (
                                                     <div
                                                         key={option.value}
                                                         className="p-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-200"
-                                                        onClick={() => handleSelectChange(index, option.value, 'firstName')}
+                                                        onClick={(event) => {
+                                                            event.preventDefault(); // 기본 동작 막기
+                                                            handleSelectChange(index, option.value, 'firstName')}}
                                                     >
                                                         {option.label}
                                                     </div>
