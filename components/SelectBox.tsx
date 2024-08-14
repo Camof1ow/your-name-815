@@ -21,6 +21,10 @@ const SelectBox: React.FC<SelectBoxProps> = ({ options, value, onChange, placeho
         setIsOpen(false); // 선택 후 드롭다운을 닫음
     };
 
+    const handleMouseDown = (event) => {
+        event.preventDefault(); // 포커스 이동 방지
+    };
+
     return (
         <div className="relative w-full max-w-xs">
             {/* Input */}
@@ -29,6 +33,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({ options, value, onChange, placeho
                     type="button"
                     className="w-full p-2 text-center text-gray-900 bg-white border border-gray-200 rounded-md flex justify-center items-center"
                     onClick={() => setIsOpen(!isOpen)}
+                    onMouseDown={handleMouseDown}
                 >
                     <span>{value || placeholder}</span>
                 </button>
@@ -43,6 +48,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({ options, value, onChange, placeho
                             key={option.value}
                             className="cursor-pointer p-2 hover:bg-gray-300"
                             onClick={() => handleSelectChange(option.value)}
+                            onMouseDown={handleMouseDown}
                         >
                             {option.label}
                         </div>
