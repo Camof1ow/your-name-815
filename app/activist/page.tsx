@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Footer from "@/components/Footer";
 import LikeButton from "@/components/LikeButton";
 import Navigation from "@/components/Navigation";
+import RepairRequestButton from "@/components/RepairRequestButton/RepairRequestButton";
 
 interface Modal {
     isOpen: boolean;
@@ -95,6 +96,7 @@ const FormPage = () => {
     return (
         <div className="flex flex-col min-h-screen bg-gray-100 p-4">
             <Navigation />
+            <RepairRequestButton dataObj={null}/>
 
             <div className="flex flex-col items-center flex-1 px-4">
                 <h1 className="text-xl text-blue-400 font-bold mb-1 text-center">내 이름과 비슷한</h1>

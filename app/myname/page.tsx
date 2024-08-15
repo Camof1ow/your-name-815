@@ -9,6 +9,7 @@ import * as d3 from 'd3';
 import Footer from "@/components/Footer";
 import LikeButton from "@/components/LikeButton";
 import Navigation from "@/components/Navigation";
+import RepairRequestButton from "@/components/RepairRequestButton/RepairRequestButton";
 
 interface HanjaData {
     hanja: string;
@@ -156,7 +157,7 @@ export default function FormPage() {
     return (
         <div className="flex flex-col min-h-screen bg-gray-100 p-4">
             <Navigation />
-
+            <RepairRequestButton dataObj={null}/>
             <div className="flex flex-col items-center flex-1 px-4">
                 <h1 className="text-xl text-blue-400 font-bold mb-1 text-center"> 광복절의 의미, 우리의 이름 🇰🇷</h1>
                 <h1 className="text-xl text-blue-500 font-bold mb-4 text-center">우리의 이름과 정체성이 계속되도록.</h1>
@@ -255,8 +256,6 @@ export default function FormPage() {
                     알겠습니다.
                 </button>
             </Modal>
-            <LikeButton />
-            {/*<Footer githubUrl="https://github.com/Camof1ow" />*/}
 
         </div>
     );

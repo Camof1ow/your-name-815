@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import LikeButton from "@/components/LikeButton";
 import AlertPopup from "@/components/AlertPopupProps";
 import Navigation from "@/components/Navigation";
+import RepairRequestButton from "@/components/RepairRequestButton/RepairRequestButton";
 
 const FormPage = () => {
     const { data } = useGlobalContext();
@@ -15,10 +16,13 @@ const FormPage = () => {
     const [error, setError] = useState<string | null>(null);
     const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
     const router = useRouter(); // useRouter 사용
+    const [objectData, setObjectData] = useState<{ [key: string]: any }>({});
+
 
     useEffect(() => {
         const fetchData = async () => {
             if (data) {
+                setObjectData(data);
                 setLoading(true); // 시작 시 로딩 상태 설정
                 try {
                     const response = await fetch(`/backend/api/name?firstName=${data.firstName}&lastName=${data.lastName}&gender=${data.gender}`);
@@ -135,12 +139,15 @@ const FormPage = () => {
 
                 </div>
             </div>
+            <RepairRequestButton
+                dataObj={objectData || {}}
+            />
+
             <LikeButton/>
             <AlertPopup
                 message="링크가 클립보드에 복사되었습니다!"
                 isVisible={isAlertVisible}
             />
-            {/*<Footer githubUrl="https://github.com/Camof1ow"/>*/}
 
         </div>
     );
