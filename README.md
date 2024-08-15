@@ -189,6 +189,7 @@ export default ClientSideComponent;
 
 **발생한 문제:**
 HTTPS 클라이언트에서 HTTP API 서버와의 통신이 보안상의 이유로 차단되었습니다. 이는 HTTPS와 HTTP 간의 혼합된 콘텐츠 문제로 인해 발생했습니다.
+
 **해결 방법:**
 next.config.js 파일에서 rewrites 기능을 사용하여 HTTPS 클라이언트 요청을 HTTPS API 서버로 리디렉션하였습니다. 이를 통해 모든 통신을 HTTPS로 통일시켜 보안 문제를 해결했습니다.
 
