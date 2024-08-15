@@ -154,7 +154,7 @@ export default function FormPage() {
     };
 
     return (
-        <div className="flex flex-col h-screen bg-gray-100 p-4">
+        <div className="flex flex-col min-h-screen bg-gray-100 p-4">
             <Navigation />
 
             <div className="flex flex-col items-center flex-1 px-4">
@@ -256,7 +256,7 @@ export default function FormPage() {
                 </button>
             </Modal>
             <LikeButton />
-            <Footer githubUrl="https://github.com/Camof1ow" />
+            {/*<Footer githubUrl="https://github.com/Camof1ow" />*/}
 
         </div>
     );

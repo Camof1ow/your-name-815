@@ -98,7 +98,7 @@ const FormPage = () => {
     };
 
     return (
-        <div className="flex flex-col h-screen bg-gray-100 p-4">
+        <div className="flex flex-col min-h-screen bg-gray-100 p-4">
             <Navigation />
 
             <div className="flex flex-col items-center flex-1 px-4">
@@ -125,13 +125,14 @@ const FormPage = () => {
                     </div>
                 ) : contents.length > 0 ? (
                     <div className="w-full p-3 max-w-md bg-white p-2 shadow-md text-center">
-                        <h2 className="text-xl font-bold text-gray-700 mb-2">
+                        <h3 className="text-xl font-bold text-gray-700 mb-2">
                             검색 이름: {simpleName?.name}
-                        </h2>
-                        <h2 className="text-2xl font-bold text-gray-700 mb-4">
+                        </h3>
+                        <h1 className="text-2xl font-bold text-gray-700 mb-4">
                             찾아낸 독립운동가들😎<br/>
-                        </h2>
+                        </h1>
                         <h5>최대 10명까지 보여집니다😀</h5>
+                        <h6>카드를 터치하면 위인의 업적을 볼 수 있어요!</h6>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                             {contents.map((content) => (
                                 <div
@@ -190,8 +191,8 @@ const FormPage = () => {
                 message="링크가 클립보드에 복사되었습니다!"
                 isVisible={isAlertVisible}
             />
-            <LikeButton />
-            <Footer githubUrl="https://github.com/Camof1ow" />
+            {/*<LikeButton />*/}
+            {/*<Footer githubUrl="https://github.com/Camof1ow" />*/}
 
         </div>
     );

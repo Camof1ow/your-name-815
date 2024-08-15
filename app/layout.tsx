@@ -3,6 +3,7 @@ import { GlobalProvider } from '@/context/GlobalContext'; // 경로를 맞게 �
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/Footer";
 
 const inter = Inter({subsets: ['latin']});
 
@@ -44,7 +45,13 @@ export default function RootLayout({
         <html lang="en">
         <body className={inter.className}>
         <GlobalProvider>
-            {children}
+            <div className="flex flex-col min-h-screen">
+                <main className="flex-grow">
+                    {children}
+                </main>
+                <Footer githubUrl="https://github.com/Camof1ow"
+                githubUrl2={`https://github.com/Kang-YongHo`}/>
+            </div>
         </GlobalProvider>
         </body>
         </html>

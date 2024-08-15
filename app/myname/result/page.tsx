@@ -58,7 +58,7 @@ const FormPage = () => {
 
 
     return (
-        <div className="flex flex-col h-screen bg-gray-100 p-4">
+        <div className="flex flex-col min-h-screen bg-gray-100 p-4">
             <Navigation />
 
             <div className="flex flex-col items-center flex-1 px-4">
@@ -130,7 +130,7 @@ const FormPage = () => {
                         className="w-full my-2 py-3 bg-purple-500 text-white rounded-md hover:bg-purple-600 text-lg"
                         onClick={handleGoToMyName}
                     >
-                        나 이름과 비슷한 독립운동가?🇰🇷
+                        내 이름과 비슷한 독립운동가?🇰🇷
                     </button>
 
                 </div>
@@ -140,7 +140,7 @@ const FormPage = () => {
                 message="링크가 클립보드에 복사되었습니다!"
                 isVisible={isAlertVisible}
             />
-            <Footer githubUrl="https://github.com/Camof1ow"/>
+            {/*<Footer githubUrl="https://github.com/Camof1ow"/>*/}
 
         </div>
     );
