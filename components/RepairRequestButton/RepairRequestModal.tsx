@@ -33,7 +33,6 @@ const RepairRequestModal: React.FC<RepairRequestModalProps> = ({isOpen, onClose,
             page,
             requestData: JSON.stringify(dataObj),
             requestMessage,
-            createdAt: new Date().toISOString(),
         };
 
         setIsSubmitting(true);
